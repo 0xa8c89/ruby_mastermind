@@ -15,15 +15,24 @@ class Board
   end
 
   def check(array)
-    r_arr = [] # return array
+    r_arr = [] # array to return
 
     array.length.times do |i|
       if array[i] == @secret[i]
         r_arr << 'R'
-      end
+      elsif @secret.include?(array[i])
+        r_arr << 'W'
+      else
+        r_arr << 'O'
+      end 
     end
     r_arr
   end
+
+  def won?(arr)
+    @secret == arr
+  end
+  
 end
 
 board = Board.new
