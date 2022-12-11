@@ -16,16 +16,33 @@ class Board
 
   def check(array)
     r_arr = [] # array to return
+    array_cp = []
+    array.each { |i| array_cp << i }
+    secret_cp = []
+    @secret.each { |i| secret_cp << i }
+
     array.length.times do |i|
       if array[i] == @secret[i]
         r_arr << 'R'
-      elsif @secret.include?(array[i])
-        r_arr << 'W'
+        secret_cp[i] = nil
+        array_cp[i] = nil
       else
         r_arr << 'O'
       end
     end
-    puts r_arr.join(' | ')
+
+    secret_cp.delete(nil)
+    array_cp.delete(nil)
+
+    array_cp.each do |i|
+      if secret_cp.include?(i)
+        secret_cp.delete_at(secret_cp.index(i))
+        r_arr[r_arr.index('O')] = 'W'
+      end
+    end
+
+    p r_arr
+    puts
   end
 
   def won?(arr)
