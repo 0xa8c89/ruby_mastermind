@@ -16,7 +16,6 @@ class Board
 
   def check(array)
     r_arr = [] # array to return
-
     array.length.times do |i|
       if array[i] == @secret[i]
         r_arr << 'R'
@@ -24,16 +23,37 @@ class Board
         r_arr << 'W'
       else
         r_arr << 'O'
-      end 
+      end
     end
-    r_arr
+    puts r_arr.join(' | ')
   end
 
   def won?(arr)
     @secret == arr
   end
-  
 end
 
-board = Board.new
-p board.check [1, 2, 3, 4]
+def play
+  board = Board.new
+
+  p board.secret
+
+  12.times do |i|
+    puts 'Enter your guess.'
+    guess_in = gets.chomp
+    guess = guess_in.split(' ')
+    guess.each_with_index do |item, idx|
+      guess[idx] = item.to_i
+    end
+    board.check(guess)
+    if board.won?(guess)
+      puts 'You won'
+      break
+    end
+    if i == 11
+      puts 'You lost'
+    end
+  end
+end
+
+play
