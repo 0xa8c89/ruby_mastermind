@@ -55,9 +55,7 @@ def play_guess
       puts 'You won'
       break
     end
-    if i == 11
-      puts 'You lost'
-    end
+    puts 'You lost' if i == 11
   end
 end
 
