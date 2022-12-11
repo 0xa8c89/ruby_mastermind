@@ -16,6 +16,7 @@ class Board
 
   def check(array)
     r_arr = [] # array to return
+
     array_cp = []
     array.each { |i| array_cp << i }
     secret_cp = []
@@ -41,8 +42,7 @@ class Board
       end
     end
 
-    puts r_arr.join(' | ')
-    puts
+    r_arr
   end
 
   def won?(arr)
@@ -50,11 +50,53 @@ class Board
   end
 end
 
+class ComputerBoard
+  include Utils
+  attr_reader :secret, :random_own
+
+  def initialize(secret)
+    @secret = secret
+    @random_own = random_pick(4)
+  end
+
+  def solve
+    12.times do |x|
+      @secret.length.times do |i|
+        unless random_own[i] == secret[i]
+          random_own[i] = rand(6) + 1
+        end
+      end
+
+      p "trying #{random_own}"
+
+      if won?(random_own)
+        puts 'Computer won!'
+        break
+      end
+
+      sleep 0.1
+
+      puts 'Computer lost!' if x == 11
+    end
+  end
+
+  def won?(array)
+    array == @secret
+  end
+end
+
+def print_result(result)
+  puts
+  puts result.join(' | ')
+  puts
+end
+
 def play_guess
   board = Board.new
 
   # p board.secret
 
+  puts
   puts "'R' means 'right color at the right place'"
   puts "'W' means 'right color on the wrong place'"
   puts '\'O\' is empty'
@@ -64,10 +106,12 @@ def play_guess
     puts 'Enter your guess.'
     guess_in = gets.chomp
     guess = guess_in.split(' ')
-    guess.each_with_index do |item, idx|
-      guess[idx] = item.to_i
-    end
-    board.check(guess)
+
+    guess.map!(&:to_i)
+
+    result = board.check(guess)
+    print_result(result)
+
     if board.won?(guess)
       puts 'You won'
       break
@@ -76,4 +120,24 @@ def play_guess
   end
 end
 
-play_guess
+def play_creator
+  puts 'Enter a secret 4 digit code'
+  code = gets.chomp
+  code_array = code.split(' ')
+  code_array.map!(&:to_i)
+  board = ComputerBoard.new(code_array)
+  board.solve
+end
+
+loop do
+  puts "Do you want to play as creator or solver? (enter 'c' or 's' or 'q' to quit)"
+  option = gets.chomp.strip.downcase
+
+  case option
+  when 'c' then play_creator
+  when 's' then play_guess
+  when 'q' then break
+  else
+    puts 'Invalid option.'
+  end
+end
