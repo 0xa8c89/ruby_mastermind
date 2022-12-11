@@ -37,9 +37,11 @@ def play_guess
   board = Board.new
 
   # p board.secret
-  puts "R means 'right color at the right place'"
-  puts "W means 'right color on the wrong place'"
-  puts "O is empty\n\n"
+
+  puts "'R' means 'right color at the right place'"
+  puts "'W' means 'right color on the wrong place'"
+  puts '\'O\' is empty'
+  puts
 
   12.times do |i|
     puts 'Enter your guess.'
