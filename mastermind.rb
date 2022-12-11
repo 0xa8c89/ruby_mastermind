@@ -20,7 +20,7 @@ class Board
     array_cp = []
     array.each { |i| array_cp << i }
     secret_cp = []
-    @secret.each { |i| secret_cp << i }
+    secret.each { |i| secret_cp << i }
 
     array.length.times do |i|
       if array[i] == @secret[i]
@@ -62,9 +62,7 @@ class ComputerBoard
   def solve
     12.times do |x|
       @secret.length.times do |i|
-        unless random_own[i] == secret[i]
-          random_own[i] = rand(6) + 1
-        end
+        random_own[i] = rand(6) + 1 unless random_own[i] == secret[i]
       end
 
       p "trying #{random_own}"
