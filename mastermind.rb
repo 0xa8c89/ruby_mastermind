@@ -33,7 +33,7 @@ class Board
   end
 end
 
-def play
+def play_guess
   board = Board.new
 
   # p board.secret
@@ -59,4 +59,4 @@ def play
   end
 end
 
-play
+play_guess
