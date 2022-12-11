@@ -31,8 +31,8 @@ class Board
       end
     end
 
-    secret_cp.delete(nil)
-    array_cp.delete(nil)
+    secret_cp.compact!
+    array_cp.compact!
 
     array_cp.each do |i|
       if secret_cp.include?(i)
@@ -41,7 +41,7 @@ class Board
       end
     end
 
-    p r_arr
+    puts r_arr.join(' | ')
     puts
   end
 
