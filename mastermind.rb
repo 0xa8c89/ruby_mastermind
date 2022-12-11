@@ -23,7 +23,7 @@ class Board
     secret.each { |i| secret_cp << i }
 
     array.length.times do |i|
-      if array[i] == @secret[i]
+      if array[i] == secret[i]
         r_arr << 'R'
         secret_cp[i] = nil
         array_cp[i] = nil
