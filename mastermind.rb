@@ -61,7 +61,7 @@ class ComputerBoard
 
   def solve
     12.times do |x|
-      @secret.length.times do |i|
+      secret.length.times do |i|
         random_own[i] = rand(6) + 1 unless random_own[i] == secret[i]
       end
 
@@ -79,7 +79,7 @@ class ComputerBoard
   end
 
   def won?(array)
-    array == @secret
+    array == secret
   end
 end
 
